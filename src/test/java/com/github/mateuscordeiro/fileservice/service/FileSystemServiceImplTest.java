@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -106,7 +107,7 @@ public class FileSystemServiceImplTest {
         Files.writeString(dir.resolve("a.txt"), "A");
         Files.writeString(dir.resolve("b.txt"), "B");
 
-        var children = service.listChildren("docs");
+        List<FileInfo> children = service.listChildren("docs");
 
         assertEquals(2, children.size());
         assertTrue(children.stream().anyMatch(f -> f.getName().equals("a.txt")));
@@ -118,7 +119,7 @@ public class FileSystemServiceImplTest {
         Path dir = tempDir.resolve("empty");
         Files.createDirectory(dir);
 
-        var children = service.listChildren("empty");
+        List<FileInfo> children = service.listChildren("empty");
 
         assertTrue(children.isEmpty());
     }
@@ -141,7 +142,7 @@ public class FileSystemServiceImplTest {
         Files.createDirectory(tempDir.resolve("folder"));
         Files.createFile(tempDir.resolve("file.txt"));
 
-        var children = service.listChildren("");
+        List<FileInfo> children = service.listChildren("");
 
         assertEquals(2, children.size());
         assertTrue(children.stream().anyMatch(f -> f.getName().equals("folder")));
@@ -528,9 +529,6 @@ public class FileSystemServiceImplTest {
         ExecutorService executor = Executors.newFixedThreadPool(threadCount * 2);
         CountDownLatch latch = new CountDownLatch(threadCount * 2);
 
-        long start = System.nanoTime();
-
-        // file1 threads
         for (int i = 0; i < threadCount; i++) {
             executor.submit(() -> {
                 service.append("file1.txt", dataA);
@@ -538,7 +536,6 @@ public class FileSystemServiceImplTest {
             });
         }
 
-        // file2 threads
         for (int i = 0; i < threadCount; i++) {
             executor.submit(() -> {
                 service.append("file2.txt", dataB);
