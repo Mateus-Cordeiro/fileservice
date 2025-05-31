@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: FileService
+
+fileservice:
+  root: ./data
