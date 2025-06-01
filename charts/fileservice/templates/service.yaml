@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fileservice
+spec:
+  selector:
+    app: fileservice
+  ports:
+    - protocol: TCP
+      port: 8080         # The port exposed by the service
+      targetPort: 8080   # The port your container listens on
+  type: ClusterIP
