@@ -16,7 +16,7 @@ A Java-based file system service accessible through an HTTP JSON-RPC 2.0 endpoin
 
 ---
 
-## 📂 File System Operations
+## File System Operations
 
 This section outlines the behavior and guarantees of each supported operation:
 
