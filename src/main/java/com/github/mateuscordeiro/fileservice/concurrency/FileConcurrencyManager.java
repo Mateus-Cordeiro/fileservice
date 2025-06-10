@@ -18,6 +18,10 @@ public class FileConcurrencyManager {
             action.run();
         } finally {
             lock.unlock();
+
+            if (!lock.isLocked()) {
+                lockMap.remove(path, lock);
+            }
         }
     }
 }

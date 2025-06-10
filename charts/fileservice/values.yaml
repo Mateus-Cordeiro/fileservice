@@ -8,3 +8,6 @@ service:
   port: 8080
 
 rootPath: /data/fileservice
+
+persistence:
+  size: 1Gi

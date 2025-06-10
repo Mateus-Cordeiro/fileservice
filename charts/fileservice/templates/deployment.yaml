@@ -28,4 +28,5 @@ spec:
               mountPath: {{ .Values.rootPath }}
       volumes:
         - name: data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: fileservice-pvc

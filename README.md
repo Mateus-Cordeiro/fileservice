@@ -191,6 +191,11 @@ helm install fileservice ./charts/fileservice
 kubectl port-forward svc/fileservice 8080:8080
 ```
 
+### Persistent Storage
+
+The Helm chart creates a persistent volume ensuring the data survives application restarts. The default storage location
+is ```/data/fileservice```.
+
 ---
 
 ## Usage

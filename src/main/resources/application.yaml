@@ -3,4 +3,4 @@ spring:
     name: FileService
 
 fileservice:
-  root: ./data
+  root: ${ROOT_PATH:/data/fileservice}
